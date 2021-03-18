@@ -30,9 +30,6 @@ public class Book extends BaseEntity {
     @Column(nullable = false)
     private int quantity = 1;
 
-//    @Column(nullable = false)
-//    private int available;
-
     private String authors;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "orderedBook")
