@@ -20,6 +20,7 @@ public class BookOrderController {
 
     private final BookOrderService bookOrderService;
 
+    @PostMapping("/create")
     public ResponseEntity<BookOrderDto> create(@RequestBody CreateBookOrderForm createBookOrderForm) {
         BookOrder createdBookOrder = bookOrderService.create(createBookOrderForm.getBookIsbn(), createBookOrderForm.getOrderQuantity());
         return new ResponseEntity<>(new BookOrderDto(createdBookOrder), HttpStatus.CREATED);

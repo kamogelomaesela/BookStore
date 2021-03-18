@@ -42,7 +42,6 @@ public class BookServiceImpl implements BookService {
             Book book = new Book();
             book.setIsbn(isbn);
             book.setQuantity(quantity);
-            book.setAvailable(quantity);
             book.setTitle(getBookTitle(jsonObjectItems));
             book.setAuthors(String.join(", ", getBookEditionAuthors(jsonObjectItems)));
             return bookRepository.save(book);
@@ -57,7 +56,7 @@ public class BookServiceImpl implements BookService {
         if (book.getAvailable() > existingBook.getQuantity()) {
             throw new ValidationException("Book Availability", "greater than book quantity");
         }
-        existingBook.setAvailable(book.getAvailable());
+        existingBook.setQuantity(book.getQuantity());
         return bookRepository.save(existingBook);
     }
 
