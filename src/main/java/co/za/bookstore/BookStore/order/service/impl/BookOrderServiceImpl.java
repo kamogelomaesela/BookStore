@@ -36,11 +36,6 @@ public class BookOrderServiceImpl implements BookOrderService {
         bookOrder.setQuantity(quantity);
         bookOrder.setOrderStatus(OrderStatus.IN_PROGRESS);
 
-        //update book Availability
-        int availableBooks = book.getAvailable() - quantity;
-        book.setAvailable(availableBooks);
-        bookService.update(book);
-
         return bookOrderRepository.save(bookOrder);
     }
 
@@ -51,12 +46,6 @@ public class BookOrderServiceImpl implements BookOrderService {
             throw new ValidationException("Order", "completed again");
         }
         bookOrder.setOrderStatus(OrderStatus.COMPLETED);
-
-        Book orderedBook = bookOrder.getOrderedBook();
-        int newBookAvailability = orderedBook.getAvailable() + bookOrder.getQuantity();
-        orderedBook.setAvailable(newBookAvailability);
-        Book updateOrderedBook = bookService.update(orderedBook);
-        bookOrder.setOrderedBook(updateOrderedBook);
 
         return bookOrderRepository.save(bookOrder);
     }
